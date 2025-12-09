@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "cd server && npx prisma@5.22.0 migrate deploy && npx prisma@5.22.0 generate && cd .. && vite build",
+    "build": "cd server && npx prisma migrate deploy && npx prisma generate && cd .. && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
