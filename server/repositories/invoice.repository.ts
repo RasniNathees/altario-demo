@@ -2,8 +2,8 @@ import { prisma } from '../config';
 import { Prisma } from '@prisma/client';
 
 export class InvoiceRepository {
-  async count() {
-    return prisma.invoice.count();
+  async count(where?: Prisma.InvoiceWhereInput) {
+    return prisma.invoice.count({ where });
   }
 
   async findMany(params: Prisma.InvoiceFindManyArgs) {

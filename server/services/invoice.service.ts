@@ -21,10 +21,23 @@ export class InvoiceService {
     const padded = counter.toString().padStart(4, "0");
     return `INV-${year}-${padded}`;
   }
-  async getAll(page: number, limit: number) {
+  async getAll(page: number, limit: number, search?: string) {
+    // Build optional where clause when a search term is provided
+    const where = search
+      ? {
+          OR: [
+            { invoiceNumber: { contains: search } },
+            { status: { contains: search } },
+            { registration: { company: { contains: search } } },
+            { registration: { fullName: { contains: search} } },
+          ],
+        }
+      : undefined;
+
     const [total, invoices] = await Promise.all([
-      this.repository.count(),
+      this.repository.count(where),
       this.repository.findMany({
+        where,
         skip: (page - 1) * limit,
         take: limit,
         include: { items: true },

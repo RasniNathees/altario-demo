@@ -43,9 +43,9 @@ export const api = {
   },
   invoices: {
     getAll: async (params: PaginationParams): Promise<PaginatedResponse<Invoice>> => {
-      const { page, limit } = params;
+      const { page, limit, search } = params;
       const response = await apiClient.get<PaginatedResponse<Invoice>>('/invoices', {
-        params: { page, limit }
+        params: { page, limit, search }
       });
       return response.data;
     },

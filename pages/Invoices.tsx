@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
 import { addInvoice, updateInvoice, deleteInvoice, fetchInvoices, fetchAllRegistrationsList } from '../store/store';
 import { InvoiceStatus, Invoice, InvoiceItem, Registration } from '../types';
-import { Card, CardContent, Button, Badge, Modal, Input, ConfirmationModal, Pagination } from '../components';
-import { Trash, Plus, Eye, Pencil, Printer, Loader2 } from 'lucide-react';
+import { Card, CardContent,CardHeader, Button, Badge, Modal, Input, ConfirmationModal, Pagination } from '../components';
+import { Trash, Plus, Eye, Pencil, Printer, Loader2,Search,} from 'lucide-react';
 import * as yup from 'yup';
 
 // --- Validation Schemas ---
@@ -34,8 +34,27 @@ interface InvoiceFormData {
 export default function Invoices() {
     const dispatch = useDispatch<AppDispatch>();
     const { items: invoices, meta, loading } = useSelector((state: RootState) => state.invoices);
-    // We need a list of users for the dropdown, but we don't want to use the main paginated list from Redux
-    // as it might only contain 10 items. We'll fetch a list specifically for the dropdown.
+
+    // Search 
+    const [searchTerm, setSearchTerm] = useState('');
+
+
+    // Smart Fetching: Only fetch if we have no items (first load) or if searching
+    useEffect(() => {
+        if (!initialized.current && invoices.length > 0 && searchTerm === '') {
+            initialized.current = true;
+            return;
+        }
+        const delayDebounceFn = setTimeout(() => {
+              // If initialized and search is empty and we have items, don't auto-refresh on simple re-renders
+              dispatch(fetchInvoices({ page: meta.page > 0 ? meta.page : 1, limit: 10, search: searchTerm }));
+              initialized.current = true;
+            }, 500);
+            return () => clearTimeout(delayDebounceFn);
+    }, [invoices, searchTerm]);
+
+    
+
     const [userOptions, setUserOptions] = useState<Registration[]>([]);
 
     const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -59,6 +78,7 @@ export default function Invoices() {
         status: InvoiceStatus.UNPAID,
         items: [{ description: 'VAT Registration Service', quantity: 1, price: 250 }]
     });
+
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const initialized = useRef(false);
@@ -135,7 +155,7 @@ export default function Invoices() {
         e.preventDefault();
         try {
             await schema.validate(formData, { abortEarly: false });
-            
+
             if (formData.items.some(i => !i.description || i.price <= 0)) {
                 setErrors({ form: 'Please complete all item fields correctly.' });
                 return;
@@ -216,6 +236,17 @@ export default function Invoices() {
             </div>
 
             <Card>
+                <CardHeader className="pb-3">
+                    <div className="relative">
+                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Search by Inovice Id, name or status..."
+                            className="pl-9"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                </CardHeader>
                 <CardContent className="pt-6">
                     <div className="rounded-md border">
                         <table className="w-full text-sm text-left">

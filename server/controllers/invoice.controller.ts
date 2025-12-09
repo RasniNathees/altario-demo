@@ -8,8 +8,10 @@ export class InvoiceController {
   getAll = async (req: Request, res: Response) => {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
-
-    const result = await this.service.getAll(page, limit);
+    const search = (req.query.search as string) || '';
+    console.log('Search Query:', search);
+    const result = await this.service.getAll(page, limit, search);
+   // console.log(result)
     res.json(result);
   };
 
