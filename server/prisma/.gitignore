@@ -1,0 +1,4 @@
+# Ignore local sqlite database files used for development/tests
+test.db
+dev.db
+*.db
