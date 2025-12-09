@@ -4,6 +4,9 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon --exec ts-node server.ts",
+    "migrate:deploy": "npx prisma@5.22.0 migrate deploy --schema=./prisma/schema.prisma",
+    "prisma:generate": "npx prisma@5.22.0 generate --schema=./prisma/schema.prisma",
+    "prisma:reset": "npx prisma@5.22.0 migrate reset --force --schema=./prisma/schema.prisma",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

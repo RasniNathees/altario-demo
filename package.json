@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "cd server && npx prisma migrate deploy && npx prisma generate && cd .. && vite build",
+    "build": "cd server && npx prisma@5.22.0 migrate deploy && npx prisma@5.22.0 generate && cd .. && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@prisma/client": "5.22.0",
     "@reduxjs/toolkit": "^2.11.1",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "prisma": "5.22.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
