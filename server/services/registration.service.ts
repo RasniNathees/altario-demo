@@ -1,6 +1,6 @@
 import { RegistrationRepository } from '../repositories';
 import { ApiError } from '../utils';
-import { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
 export class RegistrationService {
   private repository = new RegistrationRepository();
