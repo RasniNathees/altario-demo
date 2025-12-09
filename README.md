@@ -67,16 +67,16 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 - Server: create `server/.env` with at least the `DATABASE_URL`.
 
-Example `server/.env`:
+Example `server/.env` for Postgres:
 
 ```text
 PORT=5000
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DATABASE"
 NODE_ENV=development
 ```
 
 Notes:
-- The Prisma datasource in `server/prisma/schema.prisma` uses SQLite by default. For production, change the `DATABASE_URL` to point to your Postgres/MySQL instance and update Prisma accordingly.
+- The Prisma datasource in `server/prisma/schema.prisma` is configured for PostgreSQL. For local development you can point `DATABASE_URL` to a local Postgres instance; for production set `DATABASE_URL` to your managed DB (Supabase, Neon, PlanetScale, etc.).
 
 ## Database (Prisma)
 
