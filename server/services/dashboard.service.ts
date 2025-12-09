@@ -1,5 +1,9 @@
 import { RegistrationRepository, InvoiceRepository } from '../repositories';
-
+interface recentActivity {
+  createdAt: Date;
+  fullName: string;
+  status: string;
+}
 export class DashboardService {
   private registrationRepo = new RegistrationRepository();
   private invoiceRepo = new InvoiceRepository();
@@ -32,7 +36,7 @@ export class DashboardService {
       approvedRegistrations,
       rejectedRegistrations,
       totalRevenue,
-      recentActivity: recentActivity.map((r) => ({
+      recentActivity: recentActivity.map((r:recentActivity) => ({
         name: r.fullName,
         status: r.status,
         date: r.createdAt,
