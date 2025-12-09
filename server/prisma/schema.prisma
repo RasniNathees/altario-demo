@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Registration {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String
+  company   String
+  status    String   @default("PENDING") // Enum: PENDING, APPROVED, REJECTED
+  createdAt DateTime @default(now())
+  avatarUrl String?
+
+  invoices  Invoice[]
+}
+
+model Invoice {
+  id             String        @id @default(uuid())
+  invoiceNumber  String
+  registrationId String
+  dueDate        String
+  status         String        @default("UNPAID") // Enum: UNPAID, PAID, OVERDUE
+  vatRate        Float
+  notes          String?
+  createdAt      DateTime      @default(now())
+
+  registration   Registration  @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  items          InvoiceItem[]
+}
+
+model InvoiceItem {
+  id          String  @id @default(uuid())
+  invoiceId   String
+  description String
+  quantity    Int
+  price       Float
+
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
