@@ -11,19 +11,28 @@ async function main() {
     console.log('Seeding data...');
 
     // Create Registrations
-    const registrations = await Promise.all([
-        prisma.registration.create({ data: { fullName: 'Alice Johnson', email: 'alice@techcorp.com', company: 'TechCorp Solutions', status: 'PENDING', createdAt: new Date('2023-10-25') } }),
-        prisma.registration.create({ data: { fullName: 'Bob Smith', email: 'bob@innovate.io', company: 'Innovate IO', status: 'APPROVED', createdAt: new Date('2023-10-24') } }),
-        prisma.registration.create({ data: { fullName: 'Charlie Brown', email: 'charlie@design.co', company: 'Design Co', status: 'REJECTED', createdAt: new Date('2023-10-23') } }),
-        prisma.registration.create({ data: { fullName: 'Diana Prince', email: 'diana@wondertech.com', company: 'WonderTech', status: 'PENDING', createdAt: new Date('2023-10-22') } }),
-        prisma.registration.create({ data: { fullName: 'Ethan Hunt', email: 'ethan@mission.io', company: 'Mission Inc', status: 'APPROVED', createdAt: new Date('2023-10-21') } }),
-        prisma.registration.create({ data: { fullName: 'Fiona Glenanne', email: 'fiona@spyco.com', company: 'SpyCo', status: 'REJECTED', createdAt: new Date('2023-10-20') } }),
-        prisma.registration.create({ data: { fullName: 'George Martin', email: 'george@writer.com', company: 'WriterHouse', status: 'PENDING', createdAt: new Date('2023-10-19') } }),
-        prisma.registration.create({ data: { fullName: 'Hannah Baker', email: 'hannah@story.co', company: 'Story Co', status: 'APPROVED', createdAt: new Date('2023-10-18') } }),
-        prisma.registration.create({ data: { fullName: 'Ian Fleming', email: 'ian@spybooks.com', company: 'SpyBooks', status: 'REJECTED', createdAt: new Date('2023-10-17') } }),
-        prisma.registration.create({ data: { fullName: 'Julia Roberts', email: 'julia@hollywood.com', company: 'Hollywood Studios', status: 'PENDING', createdAt: new Date('2023-10-16') } }),
-    ]);
-
+ const registrations = await Promise.all([
+  prisma.registration.create({ data: { fullName: 'Alice Johnson', email: 'alice@techcorp.com', company: 'TechCorp Solutions', status: 'PENDING', createdAt: new Date('2023-10-25') } }),
+  prisma.registration.create({ data: { fullName: 'Bob Smith', email: 'bob@innovate.io', company: 'Innovate IO', status: 'APPROVED', createdAt: new Date('2023-10-24') } }),
+  prisma.registration.create({ data: { fullName: 'Charlie Brown', email: 'charlie@design.co', company: 'Design Co', status: 'REJECTED', createdAt: new Date('2023-10-23') } }),
+  prisma.registration.create({ data: { fullName: 'Diana Prince', email: 'diana@wondertech.com', company: 'WonderTech', status: 'PENDING', createdAt: new Date('2023-10-22') } }),
+  prisma.registration.create({ data: { fullName: 'Ethan Hunt', email: 'ethan@mission.io', company: 'Mission Inc', status: 'APPROVED', createdAt: new Date('2023-10-21') } }),
+  prisma.registration.create({ data: { fullName: 'Fiona Glenanne', email: 'fiona@spyco.com', company: 'SpyCo', status: 'REJECTED', createdAt: new Date('2023-10-20') } }),
+  prisma.registration.create({ data: { fullName: 'George Martin', email: 'george@writer.com', company: 'WriterHouse', status: 'PENDING', createdAt: new Date('2023-10-19') } }),
+  prisma.registration.create({ data: { fullName: 'Hannah Baker', email: 'hannah@story.co', company: 'Story Co', status: 'APPROVED', createdAt: new Date('2023-10-18') } }),
+  prisma.registration.create({ data: { fullName: 'Ian Fleming', email: 'ian@spybooks.com', company: 'SpyBooks', status: 'REJECTED', createdAt: new Date('2023-10-17') } }),
+  prisma.registration.create({ data: { fullName: 'Julia Roberts', email: 'julia@hollywood.com', company: 'Hollywood Studios', status: 'PENDING', createdAt: new Date('2023-10-16') } }),
+  prisma.registration.create({ data: { fullName: 'Kevin Hart', email: 'kevin@comedy.co', company: 'Comedy Co', status: 'APPROVED', createdAt: new Date('2023-10-15') } }),
+  prisma.registration.create({ data: { fullName: 'Laura Croft', email: 'laura@adventure.com', company: 'Adventure Inc', status: 'REJECTED', createdAt: new Date('2023-10-14') } }),
+  prisma.registration.create({ data: { fullName: 'Michael Scott', email: 'michael@dundermifflin.com', company: 'Dunder Mifflin', status: 'PENDING', createdAt: new Date('2023-10-13') } }),
+  prisma.registration.create({ data: { fullName: 'Nancy Drew', email: 'nancy@mystery.co', company: 'Mystery Co', status: 'APPROVED', createdAt: new Date('2023-10-12') } }),
+  prisma.registration.create({ data: { fullName: 'Oscar Wilde', email: 'oscar@literature.com', company: 'Literature House', status: 'REJECTED', createdAt: new Date('2023-10-11') } }),
+  prisma.registration.create({ data: { fullName: 'Pam Beesly', email: 'pam@dundermifflin.com', company: 'Dunder Mifflin', status: 'PENDING', createdAt: new Date('2023-10-10') } }),
+  prisma.registration.create({ data: { fullName: 'Quentin Tarantino', email: 'quentin@films.co', company: 'Films Co', status: 'APPROVED', createdAt: new Date('2023-10-09') } }),
+  prisma.registration.create({ data: { fullName: 'Rachel Green', email: 'rachel@fashion.com', company: 'Fashion Co', status: 'REJECTED', createdAt: new Date('2023-10-08') } }),
+  prisma.registration.create({ data: { fullName: 'Steve Rogers', email: 'steve@avengers.com', company: 'Avengers HQ', status: 'PENDING', createdAt: new Date('2023-10-07') } }),
+  prisma.registration.create({ data: { fullName: 'Tony Stark', email: 'tony@starkindustries.com', company: 'Stark Industries', status: 'APPROVED', createdAt: new Date('2023-10-06') } }),
+]);
     // Create Invoices
     const invoicesData = [
         { invoiceNumber: 'INV-2023-1001', registration: registrations[1], dueDate: '2023-11-01', status: 'PAID', items: [{ description: 'VAT Registration Service Fee', quantity: 1, price: 250 }, { description: 'Expedited Processing', quantity: 1, price: 50 }] },
