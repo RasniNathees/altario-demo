@@ -41,15 +41,15 @@ export class InvoiceRepository {
       where: { invoiceId },
     });
   }
-   async findLastOfYear(year: number) {
+   async findLastRecord() {
     return prisma.invoice.findFirst({
       where: {
-        id: {
-          startsWith: `INV-${year}-`,
+        invoiceNumber: {
+          startsWith: `INV-`,
         },
       },
       orderBy: {
-        id: "desc",
+        createdAt: "desc",
       },
     });
   }

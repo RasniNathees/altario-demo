@@ -44,7 +44,6 @@ async function main() {
     // Create Invoices
     await prisma.invoice.create({
         data: {
-            id: 'INV-2023-1001',
             invoiceNumber   : 'INV-2023-1001',  
             registrationId: bob.id,
             dueDate: '2023-11-01',
@@ -63,7 +62,6 @@ async function main() {
 
     await prisma.invoice.create({
         data: {
-            id: 'INV-2023-1002',
             invoiceNumber   : 'INV-2023-1002',
             registrationId: alice.id,
             dueDate: '2023-11-05',

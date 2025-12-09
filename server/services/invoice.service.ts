@@ -7,15 +7,17 @@ export class InvoiceService {
     private async generateInvoiceId(dueDate: Date) {
     const year = new Date(dueDate).getFullYear();
 
-    const last = await this.repository.findLastOfYear(year);
+    const last = await this.repository.findLastRecord();
 
     let counter = 1;
 
+
     if (last) {
-      const parts = last.id.split("-");
+      const parts = last.invoiceNumber.split("-");
+    
       counter = parseInt(parts[2]) + 1;
     }
-
+    //  console.log(counter);
     const padded = counter.toString().padStart(4, "0");
     return `INV-${year}-${padded}`;
   }
